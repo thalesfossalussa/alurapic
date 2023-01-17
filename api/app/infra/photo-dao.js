@@ -34,15 +34,15 @@ class PhotoDao {
         return new Promise((resolve, reject) => {
             this._db.all(`
                 SELECT  p.*,
-                        (SELECT COUNT(c.comment_id) 
-                            FROM comment as c 
+                        (SELECT COUNT(c.comment_id)
+                            FROM comment as c
                             WHERE c.photo_id = p.photo_id
-                         ) as comments, 
+                         ) as comments,
 
-                        (SELECT COUNT(l.like_id) 
-                            FROM like as l 
+                        (SELECT COUNT(l.like_id)
+                            FROM like as l
                             WHERE l.photo_id = p.photo_id
-                        ) as likes 
+                        ) as likes
                 FROM photo AS p
                         JOIN
                         user AS u ON p.user_id = u.user_id
@@ -94,15 +94,15 @@ class PhotoDao {
     findById(id) {
 
         return new Promise((resolve, reject) => this._db.get(`
-            SELECT  p.*, 
-                    (SELECT COUNT(c.comment_id) 
-                        FROM comment as c 
+            SELECT  p.*,
+                    (SELECT COUNT(c.comment_id)
+                        FROM comment as c
                         WHERE c.photo_id = p.photo_id
-                    ) as comments, 
-                    (SELECT COUNT(l.like_id) 
-                        FROM like as l 
+                    ) as comments,
+                    (SELECT COUNT(l.like_id)
+                        FROM like as l
                         WHERE l.photo_id = p.photo_id
-                    ) as likes 
+                    ) as likes
             FROM photo AS p
             WHERE p.photo_id = ?
             ORDER BY p.photo_post_date DESC;
@@ -140,8 +140,8 @@ class PhotoDao {
         return new Promise((resolve, reject) => {
             this._db.run(`
                     INSERT INTO comment (
-                        comment_date, 
-                        comment_text, 
+                        comment_date,
+                        comment_text,
                         photo_id,
                         user_id
                     ) values (?,?,?, ?)
@@ -167,12 +167,12 @@ class PhotoDao {
         return new Promise((resolve, reject) => {
             this._db.all(
                 `
-                SELECT 
-                    c.comment_date, c.comment_text, u.user_name 
-                FROM comment as c 
-                    JOIN user as u ON u.user_id = c.user_id 
-                WHERE c.photo_id = ? 
-                ORDER BY c.comment_date DESC  
+                SELECT
+                    c.comment_date, c.comment_text, u.user_name
+                FROM comment as c
+                    JOIN user as u ON u.user_id = c.user_id
+                WHERE c.photo_id = ?
+                ORDER BY c.comment_date DESC
                 `,
                 [photoId],
                 (err, rows) => {
@@ -194,10 +194,10 @@ class PhotoDao {
         return new Promise((resolve, reject) => {
             this._db.get(
                 `
-                SELECT 
-                    c.comment_date, c.comment_text, u.user_name 
-                FROM comment as c 
-                    JOIN user as u ON u.user_id = c.user_id 
+                SELECT
+                    c.comment_date, c.comment_text, u.user_name
+                FROM comment as c
+                    JOIN user as u ON u.user_id = c.user_id
                 WHERE c.comment_id = ?
                 `,
                 [commentId],
@@ -215,13 +215,13 @@ class PhotoDao {
     }
 
     likeById(photoId, userId) {
-        
+
         return new Promise((resolve, reject) => this._db.run(
             `
-            INSERT OR IGNORE INTO like 
-                (photo_id, user_id) 
-            VALUES 
-                (?, ?) 
+            INSERT OR IGNORE INTO like
+                (photo_id, user_id)
+            VALUES
+                (?, ?)
             `,
             [photoId, userId],
             function(err) {

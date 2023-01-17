@@ -1,12 +1,12 @@
 const { CommentDao, PhotoDao } = require('../infra');
 
-const userCanComment = userId => photo => 
+const userCanComment = userId => photo =>
     photo.allowComments || photo.userId === userId;
 
 const api = {};
 
 api.add = async (req, res) => {
-    
+
     const { photoId } = req.params;
     const { commentText } = req.body;
 
@@ -15,7 +15,7 @@ api.add = async (req, res) => {
 
     const photo = await photoDao.findById(photoId);
     const canComment = userCanComment(req.user.id)(photo);
-    
+
     if(canComment) {
         const commentId = await commentDao.add(commentText, photo.id, req.user.id);
         const comment = await commentDao.findById(commentId);

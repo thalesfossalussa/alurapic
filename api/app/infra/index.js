@@ -6,8 +6,8 @@ const PhotoDao = require('./photo-dao')
 
 
 module.exports = {
-    PhotoDao, 
-    CommentDao, 
+    PhotoDao,
+    CommentDao,
     UserDao,
     wrapAsync,
     auth

@@ -19,7 +19,7 @@ class UserDao {
                     console.log(err);
                     return reject('Can`t find user');
                 }
-                 
+
                 if(row) resolve(userConverter(row));
                 resolve(null);
             }
@@ -36,31 +36,31 @@ class UserDao {
                     console.log(err);
                     return reject('Can`t find user');
                 }
-                 
+
                 if(row) resolve(userConverter(row));
                 resolve(null);
             }
         ));
-        
+
     }
 
     add(user) {
         return new Promise((resolve, reject) => {
-            
+
             this._db.run(`
                 INSERT INTO user (
                     user_name,
                     user_full_name,
-                    user_email, 
-                    user_password, 
+                    user_email,
+                    user_password,
                     user_join_date
                 ) values (?,?,?,?,?)
             `,
                 [
                     user.userName,
                     user.fullName,
-                    user.email, 
-                    user.password, 
+                    user.email,
+                    user.password,
                     new Date()
                 ],
                 function (err) {

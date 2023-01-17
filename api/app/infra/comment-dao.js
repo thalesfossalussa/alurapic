@@ -14,8 +14,8 @@ class CommentDao {
         return new Promise((resolve, reject) => {
             this._db.run(`
                     INSERT INTO comment (
-                        comment_date, 
-                        comment_text, 
+                        comment_date,
+                        comment_text,
                         photo_id,
                         user_id
                     ) values (?,?,?, ?)
@@ -41,12 +41,12 @@ class CommentDao {
         return new Promise((resolve, reject) => {
             this._db.all(
                 `
-                SELECT 
-                    c.comment_date, c.comment_text, u.user_name 
-                FROM comment as c 
-                    JOIN user as u ON u.user_id = c.user_id 
-                WHERE c.photo_id = ? 
-                ORDER BY c.comment_date DESC  
+                SELECT
+                    c.comment_date, c.comment_text, u.user_name
+                FROM comment as c
+                    JOIN user as u ON u.user_id = c.user_id
+                WHERE c.photo_id = ?
+                ORDER BY c.comment_date DESC
                 `,
                 [photoId],
                 (err, rows) => {
@@ -68,10 +68,10 @@ class CommentDao {
         return new Promise((resolve, reject) => {
             this._db.get(
                 `
-                SELECT 
-                    c.comment_date, c.comment_text, u.user_name 
-                FROM comment as c 
-                    JOIN user as u ON u.user_id = c.user_id 
+                SELECT
+                    c.comment_date, c.comment_text, u.user_name
+                FROM comment as c
+                    JOIN user as u ON u.user_id = c.user_id
                 WHERE c.comment_id = ?
                 `,
                 [commentId],

@@ -19,7 +19,7 @@ api.login = async (req, res) => {
     } else {
         console.log(`Authentication failed for user ${userName}`);
         console.log('No token generated');
-        res.status(401).json({ message: `Authentication failed for user ${userName}`});  
+        res.status(401).json({ message: `Authentication failed for user ${userName}`});
     }
 };
 
