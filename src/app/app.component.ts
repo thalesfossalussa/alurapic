@@ -1,6 +1,6 @@
 import { PhotoService } from './photos/photo/photo.service';
 import { Component } from "@angular/core";
-import { observable } from 'rxjs';
+import { Photo } from './photos/photo/photo';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { observable } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  photos: Object[] = [];
+  photos: Photo[] = [];
 
   constructor (photoService: PhotoService) {
     photoService.listFromUser('flavio').subscribe(photos => this.photos = photos)
